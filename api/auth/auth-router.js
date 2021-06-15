@@ -51,7 +51,7 @@ Users.add({username,password:hash})
     "message": "Invalid credentials"
   }
  */
-  authRouter.post("/login",async(req, res, next) =>{
+  authRouter.post("/login",checkUsernameExists,async(req, res, next) =>{
 try {
   const{ username, password}=req.body
   const [user] = await Users.findBy({username})

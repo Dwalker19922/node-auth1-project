@@ -53,9 +53,25 @@ try {
     "message": "Invalid credentials"
   }
 */
-function checkUsernameExists() {
+async function checkUsernameExists(req, res, next) {
+  try {
+    const {username}=req.body
+    const data= await users.findBy({username})
+    const check = data.length<1?null:data
+    console.log(data)
+    if(check===null) {
+      res.status(401).json({message:"Invalid credentials"})
+     
+    }
+    else{
+      
+      next()
+    }
+  } catch (error) {
+    next(error)
+  }
+  }
 
-}
 
 /*
   If password is missing from req.body, or if it's 3 chars or shorter
