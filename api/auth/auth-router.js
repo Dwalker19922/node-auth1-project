@@ -88,19 +88,22 @@ res.status(401).json({message: "Invalid credentials"})
     "message": "no session"
   }
  */
-  authRouter.post("/logout",(req, res, next) =>{
+  authRouter.get("/logout",(req, res, next) =>{
     if(req.session.user){
+      
+
       req.session.destroy(err=>{ 
           if(err){res.json({message:"error"})}
+          
           else{
-              res.json({message:err})
+            res.json({message:"logged out"})
           }
       })
+  
+    }
+    else{
+      res.json({message:"no session"})
   }
-  else{
-      res.json({message:"already logged out"})
-  }
-  next(error)
 })
 
  
