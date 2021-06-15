@@ -26,7 +26,7 @@ const Users = require('../users/users-model')
     "message": "Password must be longer than 3 chars"
   }
  */
-authRouter.post("/register",checkPasswordLength,(req, res, next) =>{
+authRouter.post("/register",checkUsernameFree,checkPasswordLength,(req, res, next) =>{
 const { username, password } =req.body
 const hash= bcrypt.hashSync(password,8)
 Users.add({username,password:hash})
