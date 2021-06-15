@@ -20,17 +20,19 @@ function findBy(filter) {
   resolves to the user { user_id, username } with the given user_id
  */
 function findById(user_id) {
-
+  return db("users").where("user_id",user_id).select("user_id","username")
 }
 
 /**
   resolves to the newly inserted user { user_id, username }
  */
-function add(user) {
+async function add(user) {
 const rows = db("users")
 .insert(user)
+const [id] = await rows
+const [returnData] = await findById(id)
 
-return rows
+return returnData
 }
 module.exports ={
   find,
